@@ -1,101 +1,143 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, sans-serif;
 }
 
 .container {
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #4203a9, #90bafc);
-    color: #fff;
-    padding: 10px;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4203a9, #90bafc);
+  color: #fff;
+  padding: 10px;
 }
 
 .calculator {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 10%;
-    margin-left: 10%;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10%;
+  margin-left: 10%;
 }
 
 .calculator h1 {
-    font-size: 60px;
+  font-size: 60px;
 }
 
 .calculator h1 span {
-    color: #ffff76;
+  color: #ffff76;
 }
 
 .input-box {
-    margin: 40px 0;
-    padding: 35px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.3);
-    display: flex;
-    align-items: center;
+  margin: 40px 0;
+  padding: 35px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
 }
 
 .input-box input {
-    flex: 1;
-    margin-right: 20px;
-    padding: 14px 20px;
-    border: 0;
-    outline: 0;
-    font-size: 18px;
-    border-radius: 18px;
-    position: relative;
+  flex: 1;
+  margin-right: 20px;
+  padding: 14px 20px;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  border-radius: 18px;
+  position: relative;
 }
 
 .input-box button {
-    padding: 15px 30px;
-    border: 0;
-    outline: 0;
-    font-size: 18px;
-    font-weight: 500;
-    border-radius: 18px;
-    background-color: #ffff76;
-    color: #333;
-    cursor: pointer;
+  padding: 15px 30px;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 18px;
+  background-color: #ffff76;
+  color: #333;
+  cursor: pointer;
 }
 
 .input-box input::-webkit-calendar-picker-indicator {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    color: transparent;
-    opacity: 0.7;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    z-index: 2;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: transparent;
+  opacity: 0.7;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 2;
 }
 
 #result {
-    display: none;
-    font-size: 20px;
-    font-weight: 500;
-    margin-left: 10%;
-    margin-top: -20px;
-    padding: 15px 25px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    width: fit-content;
-    color: #fff;
-    backdrop-filter: blur(5px);
+  display: none;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 10%;
+  margin-top: -20px;
+  padding: 15px 25px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  width: fit-content;
+  color: #fff;
+  backdrop-filter: blur(5px);
 }
-#timeRemaining, #zodiacSign, #funMessage {
-    display: none;
-    font-size: 18px;
-    color: #fff;
-    margin-left: 10%;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    width: fit-content;
-    backdrop-filter: blur(5px);
+#timeRemaining,
+#zodiacSign,
+#funMessage {
+  display: none;
+  font-size: 18px;
+  color: #fff;
+  margin-left: 10%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  width: fit-content;
+  backdrop-filter: blur(5px);
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 5px;
+  }
+
+  .calculator {
+    margin-top: 5%;
+    margin-left: 5%;
+    max-width: 90%;
+  }
+
+  .calculator h1 {
+    font-size: 40px;
+  }
+
+  .input-box {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .input-box input {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .input-box button {
+    width: 100%;
+  }
+
+  #result,
+  #timeRemaining,
+  #zodiacSign,
+  #funMessage {
+    margin-left: 5%;
+    font-size: 16px;
+  }
 }
