@@ -3,9 +3,8 @@
 A fun and easy-to-use age calculator app! 🎨✨
 
 ## Features:
-- 🌍 **Supports Gregorian & Ethiopian dates** for accurate age calculation.
 - 🖼️ **Generate a stylish age card** with your full name and calculated age.
-- 💾 **Download your age card** as a beautiful PDF.
+- 💾 **Download your age card** as a beautiful image.
 - 💫 Gorgeous, modern UI with smooth animations for an awesome user experience.
 
 ## How to Use:
