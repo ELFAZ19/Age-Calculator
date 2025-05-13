@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -100,10 +100,52 @@ body {
   background: #fff44f;
 }
 
+/* Make canvas rounded and responsive */
 canvas {
   margin-top: 30px;
   border-radius: 15px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+  .calculator {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .calculator h1 {
+    font-size: 32px;
+  }
+
+  .input-box input {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .input-box button {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  #resultBox p {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  #generateCardBtn,
+  #downloadCardBtn {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
 }
 
 .hidden {
