@@ -3,23 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Age Calculator</title>
+  <title>Age & Birthday Card Generator</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="container">
     <div class="calculator">
-      <h1>JavaScript <br><span>Age Calculator</span></h1>
+      <h1>Age & Birthday Card <br><span>Generator 🎂</span></h1>
+      
       <div class="input-box">
+        <input type="text" id="name" placeholder="Enter your full name" />
         <input type="date" id="date" />
-        <button>Calculate</button>
+        <button id="calculateBtn">Calculate</button>
       </div>
-      <p id="result"></p>
-      <p id="timeRemaining"></p>
-      <p id="zodiacSign"></p>
-      <p id="funMessage"></p>
+      
+      <div id="resultBox" class="hidden">
+        <p id="ageResult"></p>
+        <p id="zodiacSign"></p>
+        <p id="chineseZodiac"></p>
+        <button id="generateCardBtn">🎉 Generate Birthday Card</button>
+        <button id="downloadCardBtn">⬇️ Download Card</button>
+      </div>
+
+      <canvas id="birthdayCard" width="500" height="300" class="hidden"></canvas>
     </div>
   </div>
+  
   <script src="index.js"></script>
 </body>
 </html>

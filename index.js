@@ -1,123 +1,120 @@
-document.querySelector("button").addEventListener("click", calculateAge);
+document.getElementById("calculateBtn").addEventListener("click", () => {
+  const name = document.getElementById("name").value.trim();
+  const dateInput = document.getElementById("date").value;
 
-function calculateAge() {
-  const result = document.getElementById("result");
-  const timeRemaining = document.getElementById("timeRemaining");
+  const resultBox = document.getElementById("resultBox");
+  const ageResult = document.getElementById("ageResult");
   const zodiacSign = document.getElementById("zodiacSign");
-  const funMessage = document.getElementById("funMessage");
+  const chineseZodiac = document.getElementById("chineseZodiac");
 
-  const userInput = document.querySelector("#date");
-  let selectedDate = userInput.value;
-
-  if (!selectedDate) {
-    result.textContent = "Please enter your birth date.";
-    result.style.display = "block";
+  if (!name || !dateInput) {
+    alert("Please enter your full name and birth date.");
     return;
   }
 
-  let birthDate = new Date(selectedDate);
-  let d1 = birthDate.getDate();
-  let m1 = birthDate.getMonth() + 1;
-  let y1 = birthDate.getFullYear();
+  const birthDate = new Date(dateInput);
+  const today = new Date();
 
-  let today = new Date();
-  let d2 = today.getDate();
-  let m2 = today.getMonth() + 1;
-  let y2 = today.getFullYear();
+  let years = today.getFullYear() - birthDate.getFullYear();
+  let months = today.getMonth() - birthDate.getMonth();
+  let days = today.getDate() - birthDate.getDate();
 
-  let y3 = y2 - y1;
-  let m3 = m2 - m1;
-  let d3 = d2 - d1;
-
-  // Adjust if the day or month is negative
-  if (d3 < 0) {
-    m3--;
-    d3 += getDaysInMonth(y2, m2 - 1 || 12);
+  if (days < 0) {
+    months--;
+    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
   }
 
-  if (m3 < 0) {
-    y3--;
-    m3 += 12;
+  if (months < 0) {
+    years--;
+    months += 12;
   }
 
-  // Age in different units
-  let ageInDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
-  let ageInWeeks = Math.floor(ageInDays / 7);
-  let ageInHours = ageInDays * 24;
-  let ageInMinutes = ageInHours * 60;
-  let ageInSeconds = ageInMinutes * 60;
+  // Zodiac Sign
+  const getZodiac = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const signs = [
+      ["Capricorn", 20],
+      ["Aquarius", 19],
+      ["Pisces", 20],
+      ["Aries", 20],
+      ["Taurus", 21],
+      ["Gemini", 21],
+      ["Cancer", 23],
+      ["Leo", 23],
+      ["Virgo", 23],
+      ["Libra", 23],
+      ["Scorpio", 22],
+      ["Sagittarius", 22],
+      ["Capricorn", 31],
+    ];
+    return day < signs[month - 1][1] ? signs[month - 1][0] : signs[month][0];
+  };
 
-  result.textContent = `Your age is ${y3} years, ${m3} months, and ${d3} days.`;
-  result.style.display = "block";
+  // Chinese Zodiac
+  const getChineseZodiac = (year) => {
+    const animals = [
+      "Rat",
+      "Ox",
+      "Tiger",
+      "Rabbit",
+      "Dragon",
+      "Snake",
+      "Horse",
+      "Goat",
+      "Monkey",
+      "Rooster",
+      "Dog",
+      "Pig",
+    ];
+    return animals[(year - 4) % 12];
+  };
 
-  // Time until next birthday
-  let nextBirthday = new Date(
-    y2 + (m2 > m1 || (m2 === m1 && d2 > d1) ? 1 : 0),
-    m1 - 1,
-    d1
-  );
-  let timeLeft = nextBirthday - today;
-  let timeLeftDays = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-  let timeLeftHours = Math.floor(
-    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  let timeLeftMinutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  ageResult.textContent = `👤 ${name}, your age is ${years} years, ${months} months, and ${days} days.`;
+  zodiacSign.textContent = `🔮 Zodiac Sign: ${getZodiac(birthDate)}`;
+  chineseZodiac.textContent = `🐉 Chinese Zodiac: ${getChineseZodiac(
+    birthDate.getFullYear()
+  )}`;
 
-  timeRemaining.textContent = `Time until next birthday: ${timeLeftDays} days, ${timeLeftHours} hours, ${timeLeftMinutes} minutes.`;
-  timeRemaining.style.display = "block";
+  resultBox.classList.remove("hidden");
+});
 
-  // Zodiac sign calculation
-  const zodiac = getZodiacSign(m1, d1);
-  zodiacSign.textContent = `Your Zodiac sign is: ${zodiac}`;
-  zodiacSign.style.display = "block";
+const generateBtn = document.getElementById("generateCardBtn");
+const downloadBtn = document.getElementById("downloadCardBtn");
+const canvas = document.getElementById("birthdayCard");
+const ctx = canvas.getContext("2d");
 
-  // Fun message based on age
-  funMessage.textContent = getFunMessage(y3);
-  funMessage.style.display = "block";
-}
+generateBtn.addEventListener("click", () => {
+  const name = document.getElementById("name").value.trim();
+  const ageText = document.getElementById("ageResult").textContent;
+  const zodiac = document.getElementById("zodiacSign").textContent;
+  const chinese = document.getElementById("chineseZodiac").textContent;
 
-function getDaysInMonth(year, month) {
-  return new Date(year, month, 0).getDate();
-}
+  canvas.classList.remove("hidden");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// Get zodiac sign based on birth date
-function getZodiacSign(month, day) {
-  const zodiacSigns = [
-    { sign: "Capricorn", endDate: { month: 1, day: 19 } },
-    { sign: "Aquarius", endDate: { month: 2, day: 18 } },
-    { sign: "Pisces", endDate: { month: 3, day: 20 } },
-    { sign: "Aries", endDate: { month: 4, day: 19 } },
-    { sign: "Taurus", endDate: { month: 5, day: 20 } },
-    { sign: "Gemini", endDate: { month: 6, day: 20 } },
-    { sign: "Cancer", endDate: { month: 7, day: 22 } },
-    { sign: "Leo", endDate: { month: 8, day: 22 } },
-    { sign: "Virgo", endDate: { month: 9, day: 22 } },
-    { sign: "Libra", endDate: { month: 10, day: 22 } },
-    { sign: "Scorpio", endDate: { month: 11, day: 21 } },
-    { sign: "Sagittarius", endDate: { month: 12, day: 21 } },
-  ];
+  ctx.fillStyle = "#fff9d6";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  for (let i = 0; i < zodiacSigns.length; i++) {
-    const sign = zodiacSigns[i];
-    if (
-      month < sign.endDate.month ||
-      (month === sign.endDate.month && day <= sign.endDate.day)
-    ) {
-      return sign.sign;
-    }
-  }
-  return "Capricorn"; // Default if not found (for December 22 - December 31)
-}
+  ctx.fillStyle = "#222";
+  ctx.font = "28px Arial";
+  ctx.fillText(`🎉 Happy Birthday, ${name.split(" ")[0]}!`, 80, 50);
 
-// Fun message based on age
-function getFunMessage(age) {
-  if (age <= 18) {
-    return "You are still in your prime years!";
-  } else if (age <= 30) {
-    return "You’re a young spirit, ready to take on the world!";
-  } else if (age <= 50) {
-    return "You have wisdom and experience, a perfect balance!";
-  } else {
-    return "You are a true inspiration with years of experience!";
-  }
-}
+  ctx.font = "18px Arial";
+  ctx.fillText(ageText, 20, 110);
+  ctx.fillText(zodiac, 20, 150);
+  ctx.fillText(chinese, 20, 190);
+
+  ctx.fillStyle = "#ff69b4";
+  ctx.font = "16px Comic Sans MS";
+  ctx.fillText("Created with ❤️ using JavaScript!", 100, 260);
+
+  downloadBtn.classList.remove("hidden");
+});
+
+downloadBtn.addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.download = "Birthday_Card.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+});
